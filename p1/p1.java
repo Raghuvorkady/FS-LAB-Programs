@@ -136,7 +136,7 @@ public class p1 {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String name;
             while ((name = br.readLine()) != null) {
-                System.out.println(name);
+                display(name);
                 names.add(name);
             }
         }
@@ -151,14 +151,6 @@ public class p1 {
                 }
             });
             fileWriter.close();
-        }
-
-        private static void display(String str) {
-            System.out.println(str);
-        }
-
-        private static void createLine() {
-            System.out.println("___________________________________________");
         }
     }
 }
