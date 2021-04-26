@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -121,11 +120,11 @@ public class p1 {
             return names;
         }
 
-        public void writeFile(String fileName, List<String> strings) {
+        public void writeFile(String fileName, List<String> names) {
             createLine();
             display("writing to file : " + fileName);
             try {
-                fileWriter(fileName, strings);
+                fileWriter(fileName, names);
             } catch (IOException e) {
                 e.printStackTrace();
             }
