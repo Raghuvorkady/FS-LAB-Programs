@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class p1 {
     public static void main(String[] args) {
         createLine();
 
-        display("1. Accept input from stdin\n2. Accept input from file\n3. Exit");
+        println("1. Accept input from stdin\n2. Accept input from file\n3. Exit");
 
         createLine();
 
@@ -29,7 +30,7 @@ public class p1 {
             case STDIN_INPUT -> stdinInput();
             case FILE_INPUT -> fileInput();
             case EXIT -> exit();
-            default -> display("invalid");
+            default -> println("invalid");
         }
 
         createLine();
@@ -39,7 +40,7 @@ public class p1 {
         System.out.println("___________________________________________");
     }
 
-    private static void display(String str) {
+    private static void println(String str) {
         System.out.println(str);
     }
 
@@ -64,7 +65,7 @@ public class p1 {
 
         createLine();
 
-        display("Enter " + num + " names line by line:");
+        println("Enter " + num + " names line by line:");
 
         for (int i = 0; i < num; i++) {
             String name = getStringInput("Enter name " + (i + 1) + " : ");
@@ -73,11 +74,11 @@ public class p1 {
 
         createLine();
 
-        display("The reversed names:");
+        println("The reversed names:");
 
         createLine();
 
-        names.forEach(name -> display(getReversedString(name)));
+        names.forEach(name -> println(getReversedString(name)));
     }
 
     private static void fileInput() {
@@ -94,11 +95,11 @@ public class p1 {
 
         fileHandler.writeFile(outputFileName, reversedNames);
         fileHandler.readFile(outputFileName);
-        display("File contents written successfully...");
+        println("File contents written successfully...");
     }
 
     private static void exit() {
-        display("exited!");
+        println("exited!");
         createLine();
         System.exit(0);
     }
@@ -109,7 +110,7 @@ public class p1 {
 
         public List<String> readFile(String fileName) {
             createLine();
-            display("reading from file : " + fileName);
+            println("reading from file : " + fileName);
             createLine();
             try {
                 bufferedFileReader(fileName);
@@ -122,7 +123,7 @@ public class p1 {
 
         public void writeFile(String fileName, List<String> names) {
             createLine();
-            display("writing to file : " + fileName);
+            println("writing to file : " + fileName);
             try {
                 fileWriter(fileName, names);
             } catch (IOException e) {
@@ -135,7 +136,7 @@ public class p1 {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String name;
             while ((name = br.readLine()) != null) {
-                display(name);
+                println(name);
                 names.add(name);
             }
         }
