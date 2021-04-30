@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.Scanner;
  */
 
 public class p1 {
-    static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
     private static final int STDIN_INPUT = 1;
     private static final int FILE_INPUT = 2;
     private static final int EXIT = 3;
@@ -139,6 +138,7 @@ public class p1 {
                 println(name);
                 names.add(name);
             }
+            br.close();
         }
 
         private void fileWriter(String fileName, List<String> names) throws IOException {
