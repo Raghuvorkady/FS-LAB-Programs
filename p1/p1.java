@@ -11,53 +11,56 @@ import java.util.Scanner;
  */
 
 public class p1 {
-    private static final Scanner scanner = new Scanner(System.in);
-    private static final int STDIN_INPUT = 1;
-    private static final int FILE_INPUT = 2;
-    private static final int EXIT = 3;
+    private final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        createLine();
+        final int STDIN_INPUT = 1;
+        final int FILE_INPUT = 2;
+        final int EXIT = 3;
 
-        println("1. Accept input from stdin\n2. Accept input from file\n3. Exit");
+        p1 p1Obj = new p1();
 
-        createLine();
+        p1Obj.createLine();
 
-        int choice = getIntInput("Enter choice: ");
+        p1Obj.println("1. Accept input from stdin\n2. Accept input from file\n3. Exit");
+
+        p1Obj.createLine();
+
+        int choice = p1Obj.getIntInput("Enter choice: ");
 
         switch (choice) {
-            case STDIN_INPUT -> stdinInput();
-            case FILE_INPUT -> fileInput();
-            case EXIT -> exit();
-            default -> println("invalid");
+            case STDIN_INPUT -> p1Obj.stdinInput();
+            case FILE_INPUT -> p1Obj.fileInput();
+            case EXIT -> p1Obj.exit();
+            default -> p1Obj.println("invalid");
         }
 
-        createLine();
+        p1Obj.createLine();
     }
 
-    private static void createLine() {
+    private void createLine() {
         System.out.println("___________________________________________");
     }
 
-    private static void println(String str) {
+    private void println(String str) {
         System.out.println(str);
     }
 
-    private static int getIntInput(String str) {
+    private int getIntInput(String str) {
         System.out.print(str);
         return scanner.nextInt();
     }
 
-    private static String getStringInput(String str) {
+    private String getStringInput(String str) {
         System.out.print(str);
         return scanner.next();
     }
 
-    private static String getReversedString(String str) {
+    private String getReversedString(String str) {
         return String.valueOf(new StringBuilder(str).reverse());
     }
 
-    private static void stdinInput() {
+    private void stdinInput() {
         List<String> names = new ArrayList<>();
 
         int num = getIntInput("Enter the number of names to be reversed: ");
@@ -80,7 +83,7 @@ public class p1 {
         names.forEach(name -> println(getReversedString(name)));
     }
 
-    private static void fileInput() {
+    private void fileInput() {
         List<String> names;
 
         FileHandler fileHandler = new FileHandler();
@@ -97,60 +100,67 @@ public class p1 {
         println("File contents written successfully...");
     }
 
-    private static void exit() {
+    private void exit() {
         println("exited!");
         createLine();
         System.exit(0);
     }
+}
 
+class FileHandler {
+    private final List<String> names = new ArrayList<>();
 
-    public static class FileHandler {
-        private final List<String> names = new ArrayList<>();
-
-        public List<String> readFile(String fileName) {
-            createLine();
-            println("reading from file : " + fileName);
-            createLine();
-            try {
-                bufferedFileReader(fileName);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            createLine();
-            return names;
+    public List<String> readFile(String fileName) {
+        createLine();
+        println("reading from file : " + fileName);
+        createLine();
+        try {
+            bufferedFileReader(fileName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
         }
+        createLine();
+        return names;
+    }
 
-        public void writeFile(String fileName, List<String> names) {
-            createLine();
-            println("writing to file : " + fileName);
+    public void writeFile(String fileName, List<String> names) {
+        createLine();
+        println("writing to file : " + fileName);
+        try {
+            fileWriter(fileName, names);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void bufferedFileReader(String fileName) throws Exception {
+        File file = new File(fileName);
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        br.lines().forEach(name -> {
+            println(name);
+            names.add(name);
+        });
+        br.close();
+    }
+
+    private void fileWriter(String fileName, List<String> names) throws IOException {
+        FileWriter fileWriter = new FileWriter(fileName);
+        for (String name : names) {
             try {
-                fileWriter(fileName, names);
+                fileWriter.write(name + "\n");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        fileWriter.close();
+    }
 
-        private void bufferedFileReader(String fileName) throws Exception {
-            File file = new File(fileName);
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String name;
-            while ((name = br.readLine()) != null) {
-                println(name);
-                names.add(name);
-            }
-            br.close();
-        }
+    private void createLine() {
+        System.out.println("___________________________________________");
+    }
 
-        private void fileWriter(String fileName, List<String> names) throws IOException {
-            FileWriter fileWriter = new FileWriter(fileName);
-            names.forEach(name -> {
-                try {
-                    fileWriter.write(name + "\n");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            fileWriter.close();
-        }
+    private void println(String str) {
+        System.out.println(str);
     }
 }
