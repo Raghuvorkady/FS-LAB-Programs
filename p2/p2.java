@@ -38,6 +38,7 @@ public class p2 {
             default -> p.println("invalid");
         }
 
+        p.createLine();
         p.exit(0);
         p.createLine();
     }
@@ -78,7 +79,8 @@ public class p2 {
         createLine();
         for (String str : records) {
             Student student = new Student();
-            if (student.search(str, inputUsn)) {
+            student.stringSplitter(str);
+            if (student.search(inputUsn)) {
                 student.unpackIt();
                 println(student.toString());
                 createLine();
@@ -86,7 +88,6 @@ public class p2 {
             }
         }
         println("Record not found");
-        createLine();
     }
 
     private void modify() {
@@ -99,8 +100,8 @@ public class p2 {
         for (String str : records) {
             Student student = new Student();
             student.stringSplitter(str);
-            student.packIt(size);
-            if (student.search(str, inputUsn)) {
+            if (student.search(inputUsn)) {
+                student.unpackIt();
                 println(student.toString());
                 Student editStudent = new Student();
                 println("Enter student details: ");
@@ -110,7 +111,10 @@ public class p2 {
                 editStudent.setSem(getIntInput("Semester: "));
                 editStudent.packIt(size);
                 fileHandler.writeFile(tempFile, editStudent.toString());
-            } else fileHandler.writeFile(tempFile, student.toString());
+            } else {
+                student.packIt(size);
+                fileHandler.writeFile(tempFile, student.toString());
+            }
         }
         fileHandler.deleteFile(fileName);
         fileHandler.renameFile(tempFile, fileName);
@@ -195,8 +199,7 @@ class Student {
                 "sem \t\t=\t " + sem;
     }
 
-    public boolean search(String str, String inputUsn) {
-        stringSplitter(str);
+    public boolean search(String inputUsn) {
         return usn.equals(inputUsn);
     }
 
@@ -268,15 +271,15 @@ class FileHandler {
         System.out.println(str);
     }
 
-    public void deleteFile(String tempFile) {
-        File file = new File(tempFile);
+    public void deleteFile(String fileName) {
+        File file = new File(fileName);
         if (file.exists())
             file.delete();
     }
 
-    public void renameFile(String tempFile, String fileName) {
-        File file = new File(tempFile);
+    public void renameFile(String oldFileName, String newFileName) {
+        File file = new File(oldFileName);
         if (file.exists())
-            file.renameTo(new File(fileName));
+            file.renameTo(new File(newFileName));
     }
 }
