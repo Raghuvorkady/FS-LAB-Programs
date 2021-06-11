@@ -53,7 +53,6 @@ public class Lab4 {
         while ((s = file.readLine()) != null) {
             count++;
             rrn[count] = (int) pos;
-            pos = file.getFilePointer();
             String[] result = s.split("\\|");
             String name = result[0];
             System.out.println("The rrn for " + name + " is " + count);
@@ -62,7 +61,7 @@ public class Lab4 {
     }
 
     public void pack() throws IOException {
-        System.out.println("Enter Name,USN,Sem and Branch ");
+        System.out.println("Enter Name, USN, Sem and Branch ");
         String name = scan.nextLine();
         String usn = scan.nextLine();
         String sem = scan.nextLine();
