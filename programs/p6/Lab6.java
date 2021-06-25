@@ -44,6 +44,19 @@ public class Lab6 {
         }
     }
 
+    public void insert() throws IOException {
+        PrintWriter pw = new PrintWriter(new FileOutputStream("f1.txt", true));
+        System.out.println("Enter USN,Name,Sem and Branch ");
+        String usn = s.nextLine();
+        String name = s.nextLine();
+        String sem = s.nextLine();
+        String branch = s.nextLine();
+        String b = usn + "|" + name + "|" + sem + "|" + branch + "|" + "$";
+        pw.println(b);
+        pw.close();
+        create_index();
+    }
+
     public void create_index() throws IOException, ArrayIndexOutOfBoundsException {
         count = -1;
         long pos;
@@ -76,19 +89,6 @@ public class Lab6 {
         }
     }
 
-    public void insert() throws IOException {
-        PrintWriter pw = new PrintWriter(new FileOutputStream("f1.txt", true));
-        System.out.println("Enter USN,Name,Sem and Branch ");
-        String usn = s.nextLine();
-        String name = s.nextLine();
-        String sem = s.nextLine();
-        String branch = s.nextLine();
-        String b = usn + "|" + name + "|" + sem + "|" + branch + "|" + "$";
-        pw.println(b);
-        pw.close();
-        create_index();
-    }
-
     public void search() throws IOException {
         int pos;
         System.out.println("Enter the name to be searched");
@@ -101,7 +101,7 @@ public class Lab6 {
             while ((t < count) && (Name_list[++t].equals(key)))
                 display_record(t);
             t = pos;
-            while ((t >= 0) && (Name_list[--t].equals(key)))
+            while ((t > 0) && (Name_list[--t].equals(key)))
                 display_record(t);
         } else
             System.out.println("Record not found");
@@ -154,7 +154,7 @@ public class Lab6 {
             while ((t < count) && (Name_list[++t].equals(key)))
                 delete_from_file(t);
             t = pos;
-            while ((t >= 0) && (Name_list[--t].equals(key)))
+            while ((t > 0) && (Name_list[--t].equals(key)))
                 delete_from_file(t);
             create_index();
         } else
