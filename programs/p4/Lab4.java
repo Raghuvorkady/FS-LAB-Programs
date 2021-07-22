@@ -1,5 +1,5 @@
 import java.io.*;
-import java.util.*;
+import java.util.Scanner;
 
 public class Lab4 {
     public static int count;
@@ -8,7 +8,7 @@ public class Lab4 {
 
     public static void main(String[] args) throws IOException {
         Lab4 obj = new Lab4();
-        obj.createrrn();
+        obj.createRRN();
 
         int choice;
 
@@ -44,7 +44,7 @@ public class Lab4 {
         }
     }
 
-    public void createrrn() throws IOException {
+    public void createRRN() throws IOException {
         count = -1;
         long pos;
         RandomAccessFile file = new RandomAccessFile("student1.txt", "r");
@@ -53,6 +53,7 @@ public class Lab4 {
         while ((s = file.readLine()) != null) {
             count++;
             rrn[count] = (int) pos;
+            pos = file.getFilePointer();
             String[] result = s.split("\\|");
             String name = result[0];
             System.out.println("The rrn for " + name + " is " + count);
@@ -61,7 +62,7 @@ public class Lab4 {
     }
 
     public void pack() throws IOException {
-        System.out.println("Enter Name, USN, Sem and Branch ");
+        System.out.println("Enter Name, USN, Sem and Branch: ");
         String name = scan.nextLine();
         String usn = scan.nextLine();
         String sem = scan.nextLine();
@@ -71,7 +72,7 @@ public class Lab4 {
         pw.println(b);
         pw.flush();
         pw.close();
-        createrrn();
+        createRRN();
     }
 
     public void unpack() throws IOException {
