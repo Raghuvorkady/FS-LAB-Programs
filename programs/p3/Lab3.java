@@ -46,8 +46,7 @@ public class Lab3 {
         String usn = scan.nextLine();
         String sem = scan.nextLine();
         String branch = scan.nextLine();
-        PrintWriter pw = new PrintWriter(new FileOutputStream(new
-                File("student.txt"), true));
+        PrintWriter pw = new PrintWriter(new FileOutputStream("student.txt", true));
         String b = name + "|" + usn + "|" + sem + "|" + branch + "|";
         pw.println(b);
         pw.flush();
@@ -55,7 +54,7 @@ public class Lab3 {
     }
 
     public void unpack() throws IOException {
-        String name = "", usn = "", sem = "", branch = "", s;
+        String name, usn, sem, branch, s;
         BufferedReader br = new BufferedReader(new FileReader("student.txt"));
         while ((s = br.readLine()) != null) {
             String[] result = s.split("\\|");
@@ -69,9 +68,9 @@ public class Lab3 {
         br.close();
     }
 
-    public void search() throws FileNotFoundException, IOException {
+    public void search() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader("student.txt"));
-        String name = "", usn = "", sem = "", branch = "", r;
+        String name, usn, sem, branch, r;
         System.out.println("Enter the usn");
         String usn1 = scan.nextLine();
         while ((r = br.readLine()) != null) {
@@ -91,8 +90,8 @@ public class Lab3 {
         br.close();
     }
 
-    public void modify() throws FileNotFoundException, IOException, NullPointerException {
-        String name = "", usn = "", sem = "", branch = "", r;
+    public void modify() throws IOException, NullPointerException {
+        String name, usn, sem, branch, r;
         File file = new File("student.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
         File temp = new File("temp.txt");
@@ -114,13 +113,7 @@ public class Lab3 {
                 String sem11 = scan.nextLine();
                 String branch11 = scan.nextLine();
                 String b = name11 + "|" + usn11 + "|" + sem11 + "|" + branch11 + "|";
-                int le = b.length();
-                String s1 = "-";
-                if (le < 50) {
-                    for (int j = le; j <= 50; j++)
-                        b = b.concat(s1);
-                    pw.println(b);
-                }
+                pw.println(b);
             } else {
                 pw.println(r);
             }
